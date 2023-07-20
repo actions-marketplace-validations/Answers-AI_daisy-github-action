@@ -24,12 +24,8 @@ import { resolve } from "path";
     return;
   }
 
-  let setupGitUser = core.getBooleanInput("setupGitUser");
-
-  if (setupGitUser) {
-    core.info("setting git user");
-    await gitUtils.setupUser();
-  }
+  core.info("setting git user");
+  await gitUtils.setupUser();
 
   core.info("setting GitHub credentials");
   await writeFile(
@@ -75,7 +71,7 @@ import { resolve } from "path";
 
   switch (true) {
     case !filesToUpdate.length && !needsMemorization:
-      core.info("Nothing of value has changed. exiting.");
+      core.info("All relevant daisy files are up to date.");
       return;
     case needsMemorization: {
       core.info("Memorizing to Pinecone...");
